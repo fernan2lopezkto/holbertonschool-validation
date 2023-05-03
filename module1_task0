@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 hugo new site quickstart
 cd quickstart
+git init
 echo "theme = 'ananke'" >> config.toml
 hugo new module1_task0/dist/welome.md
 ---
