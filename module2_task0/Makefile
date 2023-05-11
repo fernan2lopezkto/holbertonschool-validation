@@ -4,4 +4,5 @@ help:           ## Show this help.
 
 .PHONY: build
 build: ## Build go binary.
-	@go build
+	@go build -0 awesome-api
+
