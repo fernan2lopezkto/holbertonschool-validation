@@ -4,5 +4,8 @@ help:           ## Show this help.
 
 .PHONY: build
 build: ## Build go binary.
-	@go build awesome-api
-
+	ifeq (,$(wildcard ./go.mod))
+		@go mod init github.com/jgnacio/awesome-api
+		@go mod tidy
+	endif
+		@go build -o awesome-api
