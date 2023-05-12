@@ -9,3 +9,7 @@ ifeq (,$(wildcard ./go.mod))
 	@go mod tidy
 endif
 	@go build -o awesome-api
+
+.PHONY: run
+run:
+	@go run awesome-api
