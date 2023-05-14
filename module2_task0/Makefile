@@ -18,7 +18,7 @@ stop: ## stop this
 	@kill $(shell pgrep awesome-api)
 
 clean: ## delete log file
-	@rm -r awesome-api.log
+	@rm -f awesome-api.log
 
 test:
 	@curl http://localhost:9999
