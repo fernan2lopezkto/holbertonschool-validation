@@ -24,8 +24,7 @@ This project needs the following tools / services:
 
 
 
-<section>
-## Project Life-cycle
+## Lifecycle
 
 The life-cycle of this project is defined by the following goals:
 
@@ -34,4 +33,3 @@ The life-cycle of this project is defined by the following goals:
 - `stop`: stop the application with the command `kill <pid-of-awesome-api>` where `<pid-of-awesome-api>` is the Process ID of the application. For instance, `kill "$(pgrep awesome-api)"`.
 - `clean`: stop the application, delete the binary `awesome-api` and the log file `awesome-api.log`.
 - `test`: test the application to ensure that it behaves as expected.
-</section>
