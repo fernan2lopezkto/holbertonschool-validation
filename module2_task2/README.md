@@ -33,3 +33,64 @@ The life-cycle of this project is defined by the following goals:
 - `stop`: stop the application with the command `kill <pid-of-awesome-api>` where `<pid-of-awesome-api>` is the Process ID of the application. For instance, `kill "$(pgrep awesome-api)"`.
 - `clean`: stop the application, delete the binary `awesome-api` and the log file `awesome-api.log`.
 - `test`: test the application to ensure that it behaves as expected.
+
+### Makefile commands
+* **help**
+	```bash
+	make help
+	```
+
+	Displays a list of targets and their descriptions.
+
+* **build**
+
+	```bash
+	make build
+	```
+
+	Compiles the source code of the application into a binary named `awesome-api`. If the `go.mod` file is missing, it is generated automatically. 
+
+* **run**
+
+	```bash
+	make run
+	```
+
+	Runs the `awesome-api` application in the background and writes logs into a file named `awesome-api.log`.
+
+* **stop**
+
+	```bash
+	make stop
+	```
+
+	Kills the `awesome-api` application process.
+
+* **clean**
+
+	```bash
+	make clean
+	```
+
+	Stops the `awesome-api` application, removes the binary `awesome-api`, and deletes the log file `awesome-api.log`.
+
+* **test**
+
+	```bash
+	make test
+	```
+
+	Tests the `awesome-api` application by sending HTTP requests to the server. If the server is running, it should respond with a message indicating that it is alive. If the requested path is `/`, the server should return a `404 Not Found` response, then sending another HTTP request to `/health`, if the server is running should return `ALIVE`.
+
+* **lint**
+	To maintain the quality of the codebase, it's good practice to use a linter to check for code style and formatting issues. This project uses the [golangci-lint](https://golangci-lint.run/) linter. To add the linter to the project, follow these steps:
+
+	1. Install golangci-lint by following the instructions in the [official documentation](https://golangci-lint.run/usage/install/#local-installation). 
+
+	2. Once you have installed the linter, add the following command to the Makefile:
+
+	```bash
+	make lint
+	```
+	
+	This command will run the golangci-lint linter on all Go files in the project.
