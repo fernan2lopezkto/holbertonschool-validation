@@ -18,8 +18,8 @@ stop: ## stop this
 	@kill $(shell pgrep awesome-api)
 
 clean: ## delete log file
-	@rm -f awesome-api.log
+	@rm -f awesome-api.log awesome-api
 
-test:
+test: ## test
 	@curl http://localhost:9999
 	@curl http://localhost:9999/health
