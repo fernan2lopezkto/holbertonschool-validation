@@ -3,7 +3,7 @@ help:               ## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 
-build: main.go      ## Build go binary.
+build: | lint awesome-api      ## Build go binary.
 ifeq (,$(wildcard ./go.mod))
 	@go mod init github.com/jgnacio/awesome-api
 	@go mod tidy
