@@ -18,7 +18,7 @@ stop: ##               stop awesome-api server
 	@kill $(shell pgrep awesome-api)
 
 clean: ##              delete log file and exe file
-	@kill $(shell pgrep awesome-api)
+#	@pkill $(shell pgrep awesome-api)
 	@rm -f awesome-api.log awesome-api
 
 test: ##               test awesome-api server 
