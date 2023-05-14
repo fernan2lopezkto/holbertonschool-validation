@@ -11,5 +11,13 @@ endif
 	@go build -o awesome-api
 
 .PHONY: run
-run:
-	@go run awesome-api
+run: ## run this
+	@./awesome-api >./awesome-api.log 2>&1 &
+
+.PHONY: stop
+stop: ## stop this
+	@kill "$(pgrep awesome-api)"
+
+.PHONY: clean
+clean: ## delete log file
+	@rm awesome-api.log
