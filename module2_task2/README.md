@@ -82,6 +82,12 @@ The life-cycle of this project is defined by the following goals:
 
 	Tests the `awesome-api` application by sending HTTP requests to the server. If the server is running, it should respond with a message indicating that it is alive. If the requested path is `/`, the server should return a `404 Not Found` response, then sending another HTTP request to `/health`, if the server is running should return `ALIVE`.
 
+* **unit-tests**
+    ```bash
+    make unit-tests
+    ```
+    Check unit test for projects
+
 * **lint**
 	To maintain the quality of the codebase, it's good practice to use a linter to check for code style and formatting issues. This project uses the [golangci-lint](https://golangci-lint.run/) linter. To add the linter to the project, follow these steps:
 
