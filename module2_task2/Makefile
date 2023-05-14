@@ -27,5 +27,5 @@ test: ##                       test awesome-api server
 lint: ##                       lint for all files in the proyect.
 	@golangci-lint run
 
-unit-tests: ##              test project
+unit-tests: ##                 test project
 	@go test -v -short -coverprofile=coverage-units.out
