@@ -18,6 +18,7 @@ stop: ## stop this
 	@kill $(shell pgrep awesome-api)
 
 clean: ## delete log file
+	@kill $(shell pgrep awesome-api)
 	@rm -f awesome-api.log awesome-api
 
 test: ## test
