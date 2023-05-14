@@ -15,7 +15,7 @@ run: awesome-api ## run this
 
 .PHONY: stop
 stop: ## stop this
-	@pkill $(pgrep awesome-api)
+	@pkill $(shell pgrep awesome-api)
 
 clean: ## delete log file
 	@rm -r awesome-api.log
