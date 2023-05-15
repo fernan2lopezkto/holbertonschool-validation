@@ -25,8 +25,7 @@ func setupRouter() *mux.Router {
 	// Create a new empty HTTP Router
 	r := mux.NewRouter()
 
-	// When an HTTP GET request is received on the path /health,
-	//delegates to the function "HealthCheckHandler()"
+	// When an HTTP GET request is received on the path /health, delegates to the function "HealthCheckHandler()"
 	r.HandleFunc("/health", HealthCheckHandler).Methods("GET")
 
 	// when an HTTP GET request is received on the path /hello
@@ -40,11 +39,7 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("HIT: healthcheck")
 
 	// Write the string "ALIVE" into the response's body
-	//io.WriteString(w, "ALIVE")
-	if _, err := io.WriteString(w, "ALIVE"); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	_, _ = io.WriteString(w, "ALIVE")
 
 	// End of the function: return HTTP 200 by default
 }
@@ -73,12 +68,7 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Write the string "Hello <name>" into the response's body
-	//_, _ = io.WriteString(w, fmt.Sprintf("Hello %s!", name))
-	_, err := io.WriteString(w, fmt.Sprintf("Hello %s!", name))
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	_, _ = io.WriteString(w, fmt.Sprintf("Hello %s!", name))
 
 	// Print a line in the ACCESS log
 	fmt.Printf("HIT: hello handler with name %s \n", name)

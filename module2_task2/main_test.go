@@ -30,24 +30,23 @@ func Test_HelloHandler(t *testing.T) {
 			responseCode: 200,
 			body:         "Hello Rosalind Franklin!",
 		},
-		// INSERT MORE TESTS HERE
 		{
-			name:         "Empty name",
+			name:         "Empty Name",
 			queryString:  "name=",
 			responseCode: 400,
-			body:         "",
-		},
-		{
-			name:         "No name parameter",
-			queryString:  "",
-			responseCode: 200,
-			body:         "Hello there!",
+			body:         "", // Expecting an empty response body
 		},
 		{
 			name:         "Multiple Names",
 			queryString:  "name=Ada&name=Lovelace",
 			responseCode: 200,
-			body:         "Hello Ada!",
+			body:         "Hello Ada!", // Expecting the first name in the query string
+		},
+		{
+			name:         "No Name Parameter",
+			queryString:  "",
+			responseCode: 200,
+			body:         "Hello there!", // Expecting the default response when no name parameter is provided
 		},
 	}
 	for _, tt := range tests {
