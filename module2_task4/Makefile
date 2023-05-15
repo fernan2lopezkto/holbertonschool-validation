@@ -1,6 +1,15 @@
-build: lint check ## Generate the website from the markdown and configuration files in the directory dist/ and compile the source code of the application to a binary named awesome-api.
-	hugo
-	go build 
+#build: lint check ## Generate the website from the markdown and configuration files in the directory dist/ and compile the source code of the application to a binary named awesome-api.
+#	hugo
+#	go build 
+
+
+help: ## Show this help usage
+	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+
+
+build: lint check ## Generate the website from the markdown and configuration files in the directory dist/
+	@hugo
+	@go build -o awesome-api
 
 .PHONY: clean
 clean: ## Cleanup the content of the directory dist/.Stop the application. Delete the binary awesome-api and the log file awesome-api.log
@@ -40,6 +49,3 @@ check: ## Check the Markdown source files for linting and dead links
 validate: ## Validate the generated HTML file
 	@echo "Validating HTML..."
 	./opt/W3C-Validator/w3c_validator.py ./dist/index.html || true
-
-help: ## Show this help usage
-	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
