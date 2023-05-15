@@ -3,9 +3,9 @@ help:                       ## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 
-build: | lint awesome-api    ## Build go binary.
+build: | lint       ## Build go binary.
 ifeq (,$(wildcard ./go.mod))
-	@go mod init github.com/jgnacio/awesome-api
+	@go mod init github.com/fernan2lopezkto/awesome-api
 	@go mod tidy
 endif
 	@go build -o awesome-api
@@ -23,6 +23,7 @@ clean: ##                      delete log file and exe file
 test: ##                       test awesome-api server 
 	@curl http://localhost:9999
 	@curl http://localhost:9999/health
+	@curl http://localhost:9999/hello
 
 lint: ##                       lint for all files in the proyect.
 	@golangci-lint run
