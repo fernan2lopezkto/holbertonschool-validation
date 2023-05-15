@@ -26,7 +26,7 @@ test: ##                       test awesome-api server
 	@curl http://localhost:9999/hello
 
 lint: ##                       lint for all files in the proyect.
-	@golangci-lint run
+	@golangci-lint run || exit
 
 unit-tests: ## Execute the Golang unit tests.
 	@go test -v -short -coverprofile=coverage-units.out
