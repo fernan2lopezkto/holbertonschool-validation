@@ -39,7 +39,11 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("HIT: healthcheck")
 
 	// Write the string "ALIVE" into the response's body
-	io.WriteString(w, "ALIVE")
+	//io.WriteString(w, "ALIVE")
+	if _, err := io.WriteString(w, "ALIVE"); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	// End of the function: return HTTP 200 by default
 }
