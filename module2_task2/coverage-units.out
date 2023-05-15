@@ -6,8 +6,10 @@ github.com/fernan2lopezkto/awesome-api/main.go:24.32,36.2 4 0
 github.com/fernan2lopezkto/awesome-api/main.go:38.65,44.54 2 0
 github.com/fernan2lopezkto/awesome-api/main.go:44.54,47.3 2 0
 github.com/fernan2lopezkto/awesome-api/main.go:52.59,60.25 4 1
-github.com/fernan2lopezkto/awesome-api/main.go:61.9,63.17 1 0
+github.com/fernan2lopezkto/awesome-api/main.go:61.9,63.17 1 1
 github.com/fernan2lopezkto/awesome-api/main.go:64.10,66.23 1 1
 github.com/fernan2lopezkto/awesome-api/main.go:70.2,70.16 1 1
-github.com/fernan2lopezkto/awesome-api/main.go:70.16,73.3 2 0
-github.com/fernan2lopezkto/awesome-api/main.go:76.2,79.56 2 1
+github.com/fernan2lopezkto/awesome-api/main.go:70.16,73.3 2 1
+github.com/fernan2lopezkto/awesome-api/main.go:77.2,78.16 2 1
+github.com/fernan2lopezkto/awesome-api/main.go:78.16,81.3 2 0
+github.com/fernan2lopezkto/awesome-api/main.go:84.2,84.56 1 1

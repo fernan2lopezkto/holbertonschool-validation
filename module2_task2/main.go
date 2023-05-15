@@ -73,7 +73,12 @@ func HelloHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Write the string "Hello <name>" into the response's body
-	_, _ = io.WriteString(w, fmt.Sprintf("Hello %s!", name))
+	//_, _ = io.WriteString(w, fmt.Sprintf("Hello %s!", name))
+	_, err := io.WriteString(w, fmt.Sprintf("Hello %s!", name))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	// Print a line in the ACCESS log
 	fmt.Printf("HIT: hello handler with name %s \n", name)
