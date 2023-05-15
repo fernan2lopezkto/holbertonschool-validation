@@ -1,35 +1,38 @@
+build: ## Generate the website from the markdown and configuration files in the directory dist/ and compile the source code of the application to a binary named awesome-api.
+	hugo
+	make lint
+	go build 
+
+.PHONY: clean
+clean: ## Cleanup the content of the directory dist/.Stop the application. Delete the binary awesome-api and the log file awesome-api.log
+	rm -fr ./dist/*
+	rm -f ./awesome-api ./awesome-api.log
+	rm -f ./coverage-units.out ./coverage-integrations.out
+	make stop
+
+post: ## Create a new blog post whose filename and title come from the environment variables POST_TITLE and POST_NAME.
+	hugo new posts/${POST_NAME}.md
+	sed -i '2s/.*/title: "$(POST_TITLE)"/' content/posts/$(POST_NAME).md
+	sed -i '4s/.*/draft: false/' content/posts/$(POST_NAME).md
+
+run: ## Run the application in background by executing the binary awesome-api, and write logs into a file named awesome-api.log.
+	./awesome-api >./awesome-api.log 2>&1 &
+
+stop: ## Stop the application.
+	-pgrep awesome-api && pkill awesome-api
+
+test: ## Test it to ensure that it behaves as expected.
+	make unit-tests
+	make integration-tests
+
+lint: ## Execute a static analysis to lint this code.
+	golangci-lint run || exit
+
+unit-tests: ## Make Unit tests
+	go test -v -short -coverprofile=coverage-units.out
+
+integration-tests: ## Make integration tests
+	go test -v -coverprofile=coverage-integrations.out
+
 help: ## Show this help usage
-	@awk -F ': ' '/^[^#].*: /{printf "  %-15s%s\n", $$1, $$2}' $(MAKEFILE_LIST)
-
-lint: ## Fail when the linter catches an error
-	@golangci-lint run
-
-build: lint ## Generate the website from the markdown and configuration files in the directory dist/
-	@hugo
-	@go build -o awesome-api
-
-run: ## Run the application in background by executing the binary awesome-api
-	@./awesome-api >./awesome-api.log 2>&1 &
-
-post: ## Create a new blog post whose filename and title come from the environment variables POST_TITLE and POST_NAME
-	@hugo new posts/$(POST_NAME).md
-	@echo "---\
-	title: '$(POST_TITLE)'\
-	date: $(date +"%Y-%m-%dT%H:%M:%S%z")\
-	---" > content/posts/$(POST_NAME).md
-
-stop: ## Stop the application with the command kill XXXXX where XXXXX is the Process ID of the application
-	@pkill awesome-api
-
-clean: ## Cleanup the content of the directory dist/ and awesome-api/awesome-api.log files
-	@rm -rf dist
-	@rm -f awesome-api awesome-api.log coverage-units.out coverage-integrations.out
-
-test: unit-tests integration-tests ## Test it to ensure that it behaves as expected
-	
-
-unit-tests: ## Execute the Golang unit tests
-	@go test -v -short -coverprofile=coverage-units.out
-
-integration-tests: ## Execute the Golang integration tests
-	@go test -v -coverprofile=coverage-integrations.out
+	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'

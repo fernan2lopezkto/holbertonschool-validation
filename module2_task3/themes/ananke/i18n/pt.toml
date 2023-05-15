@@ -5,13 +5,10 @@ other = "Mais"
 other = "Todo o {{.Title }}"
 
 [recentTitle]
-other = "{{.Title }} Recentes"
+other = "Recentes {{.Title }}"
 
 [readMore]
 other = "Leia mais"
-
-[by]
-other = "por"
 
 [whatsInThis]
 other = "O que há neste {{ .Type }}"
@@ -35,7 +32,4 @@ other = "É necessário um endereço de e-mail."
 other = "Enviar"
 
 [taxonomyPageList]
-other = "Abaixo você encontrará as páginas que utilizam o termo de taxonomia “{{ .Title }}”"
-
-[pageTitle]
-other = "{{ .Name }} página"
+other = "Below you will find pages that utilize the taxonomy term “{{ .Title }}”"

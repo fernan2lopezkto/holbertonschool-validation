@@ -1,33 +1,28 @@
-## Prerequisites
+# Prerequisites
 
--A Valid Go-Hugo website is provided
+To build this website, you will need to have the following installed:
 
--There are no Git Submodules
+    Go-Hugo
+    GNU Make
 
--The theme ananke is installed
+# Lifecycle
 
--No directory dist/ committed
+There are three main steps involved in building and maintaining this website:
 
--Makefile present
+Help: Show this help usage 
 
-## Lifecycle
+build: this target should compile the source code and generate the binary in the BUILD_DIR directory. You can use the "go build" command for this.
 
-- build: compile the source code of the application to a binary named awesome-api (the name awesome-api comes from the command go mod init github.com/<your github handle>/awesome-api) with the command go build. The first build may takes some times.
+run: this target should run the binary in the background and write the logs to the LOG_FILE. You can use the "nohup" command to run the binary in the background and redirect the logs to the LOG_FILE.
 
-- run: Run the application in background by executing the binary awesome-api, and write logs into a file named awesome-api.log with the command ./awesome-api >./awesome-api.log 2>&1 &.
+stop: this target should stop the running server. You can use the "kill" command to send a SIGINT signal to the process ID stored in the PID_FILE.
 
-- post: Create a new blog post whose filename and title come from the environment variables POST_TITLE and POST_NAME.
+clean: this target should stop the running server (if it is running), delete the binary in the BUILD_DIR directory, and delete the LOG_FILE.
 
-- stop: Stop the application with the command pkill XXXXX where XXXXX is the binary name. For instance: pkill awesome-api.
+test: this target should run some tests to ensure that the server is working as expected. You can use the "curl" command to send HTTP requests to the server and check the responses.
 
-- clean: Stop the application. Delete the binary awesome-api and the log file awesome-api.log.
+lint: lint the code
 
-- test: Test the application using unit and integration tests.
+unit-tests: Make unit tests
 
-- help: Print a list of all the goals.
-
-- lint: Fail when the linter catches an error.
-
-- unit-tests: Execute (successfully) the Golang unit tests.
-
-- integration-tests: Execute (successfully) the Golang integration tests.
+integration-tests: Make intergation tests

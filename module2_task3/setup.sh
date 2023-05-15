@@ -1,7 +1,12 @@
 #!/bin/bash
+
+# Install prerequisites
 apt-get update
-curl -L -o hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v0.84.0/hugo_extended_0.84.0_Linux-64bit.tar.gz
-tar xzf hugo.tar.gz hugo
-mv hugo /usr/local/bin/
-apt-get install -y hugo make
+apt-get install -y wget make
+
+# Download and install Hugo
+wget https://github.com/gohugoio/hugo/releases/download/v0.55.0/hugo_0.55.0_Linux-64bit.deb
+dpkg -i hugo_0.55.0_Linux-64bit.deb
+
+# Run make build
 make build

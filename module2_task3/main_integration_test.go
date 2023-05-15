@@ -32,19 +32,19 @@ func Test_server(t *testing.T) {
 			body:         "Hello Holberton!",
 		},
 		{
-			name:         "Hello empty page",
-			URI:          "/hello",
+			name:         "No Parameter",
+			URI:          "/hello?",
 			responseCode: 200,
 			body:         "Hello there!",
 		},
 		{
-			name:         "Health page",
+			name:         "HealthCheck",
 			URI:          "/health",
 			responseCode: 200,
 			body:         "ALIVE",
 		},
 		{
-			name:         "Hello nothing page",
+			name:         "HelloHandler",
 			URI:          "/hello?name=",
 			responseCode: 400,
 			body:         "",
@@ -80,5 +80,88 @@ func Test_server(t *testing.T) {
 				t.Errorf("handler returned unexpected body: got %q want %q", gotBody, expectedBody)
 			}
 		})
+	}
+}
+func TestIntegration_SetupRouter(t *testing.T) {
+	router := setupRouter()
+
+	// Create a new HTTP request for the path "/health"
+	req, err := http.NewRequest("GET", "/health", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Create a new HTTP recorder to capture the response
+	rr := httptest.NewRecorder()
+
+	// Serve the HTTP request using the router
+	router.ServeHTTP(rr, req)
+
+	// Check the response status code
+	expectedCode := http.StatusOK
+	if rr.Code != expectedCode {
+		t.Errorf("handler returned wrong status code: got %v, want %v", rr.Code, expectedCode)
+	}
+
+	// Check the response body
+	expectedBody := "ALIVE"
+	if rr.Body.String() != expectedBody {
+		t.Errorf("handler returned unexpected body: got %v, want %v", rr.Body.String(), expectedBody)
+	}
+}
+
+func TestIntegration_HelloHandler(t *testing.T) {
+	router := setupRouter()
+
+	// Create a new HTTP request for the path "/hello" with a query parameter "name"
+	req, err := http.NewRequest("GET", "/hello?name=John", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Create a new HTTP recorder to capture the response
+	rr := httptest.NewRecorder()
+
+	// Serve the HTTP request using the router
+	router.ServeHTTP(rr, req)
+
+	// Check the response status code
+	expectedCode := http.StatusOK
+	if rr.Code != expectedCode {
+		t.Errorf("handler returned wrong status code: got %v, want %v", rr.Code, expectedCode)
+	}
+
+	// Check the response body
+	expectedBody := "Hello John!"
+	if rr.Body.String() != expectedBody {
+		t.Errorf("handler returned unexpected body: got %v, want %v", rr.Body.String(), expectedBody)
+	}
+}
+
+func TestIntegration_HealthCheckHandler(t *testing.T) {
+	router := setupRouter()
+
+	// Create a new HTTP request for the path "/health"
+	req, err := http.NewRequest("GET", "/health", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Create a new HTTP recorder to capture the response
+	rr := httptest.NewRecorder()
+
+	// Serve the HTTP request using the router
+	router.ServeHTTP(rr, req)
+
+	// Check the response status code
+	expectedCode := http.StatusOK
+	if rr.Code != expectedCode {
+		t.Errorf("handler returned wrong status code: got %v, want %v", rr.Code, expectedCode)
+	}
+
+	// Check the response body
+	expectedBody := "ALIVE"
+	if rr.Body.String() != expectedBody {
+		t.Errorf("handler returned unexpected body: got %v, want %v", rr.Body.String(), expectedBody)
 	}
 }
