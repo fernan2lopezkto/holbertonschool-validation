@@ -51,34 +51,38 @@ Al definir una canalización de entrega de software con tareas automatizadas, se
 
 # Lecturas de referencia
 
-https://docs.github.com/en/actions
-https://docs.github.com/en/github/administering-a-repository/managing-releases-in-a-repository
-https://git-scm.com/book/en/v2/Git-Basics-Tagging
-http://martinfowler.com/articles/continuousIntegration.html
-http://martinfowler.com/bliki/ContinuousDelivery.html
-http://blog.arungupta.me/continuous-integration-delivery-deployment-maturity-model
-https://github.com/softprops/action-gh-release
-https://github.com/marketplace/actions/netlify-actions
-https://docs.netlify.com/cli/get-started/#obtain-a-token-via-the-command-line
-https://docs.netlify.com/cli/get-started/
-https://www.netlify.com/
-https://github.com/release-drafter/release-drafter
-https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests
-https://github.com/actions/create-release
-https://mikefarah.gitbook.io/yq/
-https://www.heroku.com/
-https://github.com/koalaman/shellcheck
-https://docs.github.com/en/actions/reference/specifications-for-github-hosted-runners#supported-software
-https://docs.github.com/en/actions/reference/specifications-for-github-hosted-runners
-https://docs.github.com/en/actions/reference/events-that-trigger-workflows
-https://docs.github.com/en/actions/reference#workflow-syntax
-https://docs.github.com/en/free-pro-team@latest/actions/reference
-https://docs.github.com/en/actions/quickstart
+https://docs.github.com/en/actions<br>
+https://docs.github.com/en/github/administering-a-repository/managing-releases-in-a-repository<br>
+https://git-scm.com/book/en/v2/Git-Basics-Tagging<br>
+http://martinfowler.com/articles/continuousIntegration.html<br>
+http://martinfowler.com/bliki/ContinuousDelivery.html<br>
+http://blog.arungupta.me/continuous-integration-delivery-deployment-maturity-model<br>
+https://github.com/softprops/action-gh-release<br>
+https://github.com/marketplace/actions/netlify-actions<br>
+https://docs.netlify.com/cli/get-started/#obtain-a-token-via-the-command-line<br>
+https://docs.netlify.com/cli/get-started/<br>
+https://www.netlify.com/<br>
+https://github.com/release-drafter/release-drafter<br>
+https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests<br>
+https://github.com/actions/create-release<br>
+https://mikefarah.gitbook.io/yq/<br>
+https://www.heroku.com/<br>
+https://github.com/koalaman/shellcheck<br>
+https://docs.github.com/en/actions/reference/specifications-for-github-hosted-runners#supported-software<br>
+https://docs.github.com/en/actions/reference/specifications-for-github-hosted-runners<br>
+https://docs.github.com/en/actions/reference/events-that-trigger-workflows<br>
+https://docs.github.com/en/actions/reference#workflow-syntax<br>
+https://docs.github.com/en/free-pro-team@latest/actions/reference<br>
+https://docs.github.com/en/actions/quickstart<br>
+
+<br><br><br>
 
 
 # <strong> Tasks </strong>
 
-# task0. Continuous Integration with GitHub Actions
+<br>
+
+# task 0. Continuous Integration with GitHub Actions
 
 [![Esta es una imagen de ejemplo](https://dduportal.github.io/public/holberton/m3-t0-0.png)](https://dduportal.github.io/public/holberton/m3-t0-0.png)
 
@@ -118,3 +122,36 @@ Como GitHub impone la ubicación de los flujos de trabajo en .github/workflows, 
 ➜ test -L github-workflow.yml && readlink github-workflow.yml
 ../.github/workflows/module3_task0.yml
 ```
+- El archivo de flujo de trabajo original <...>/.github/workflows/module3_task0.yml debe ser:
+  - Presente con una sintaxis YAML válida (puede verificar la sintaxis yaml con yamllint v1.*
+  - Debe ser un flujo de trabajo de acción de GitHub válido con 1 trabajo y 1 paso
+  -Debe tener 2 gatillos
+
+```bash
+➜ yamllint "$(readlink github-workflow.yml)" --no-warnings >/dev/null 2>&1 && echo OK
+OK
+➜ yq eval '.jobs.*.steps.[].name' "$(readlink github-workflow.yml)" | wc -l
+2
+```
+
+  - El flujo de trabajo llamado module3_task0 debe estar habilitado en GitHub Actions y debe haberse ejecutado correctamente
+
+```bash
+➜ curl --silent --show-error --user "${GH_USERNAME}:${GH_TOKEN}" "https://api.github.com/repos/${GH_USERNAME}/${GH_REPO}/actions/runs" | jq '.workflow_runs[0] | .name, .head_branch, .conclusion'
+"module3_task0"
+"main"
+"success"
+```
+
+### Repo:
+
+- ##### GitHub repository: holbertonschool-validation
+- ##### Directory: ./module3_task0
+
+<br><br><br><br>
+
+# task 1. Agregar dependencias de compilación al entorno de CI
+obligatorio
+Ahora que ha configurado su primer flujo de trabajo, reemplacemos el comando make help por el comando make build.
+
+El resultado debería ser una canalización fallida con un error como este:
