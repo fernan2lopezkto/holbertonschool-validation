@@ -1,27 +1,37 @@
 ## Prerequisites
 
+-A Valid Go-Hugo website is provided
+
+-There are no Git Submodules
+
+-The theme ananke is installed
+
+-No directory dist/ committed
+
+-Makefile present
+
 ## Lifecycle
 
 - build: compile the source code of the application to a binary named awesome-api (the name awesome-api comes from the command go mod init github.com/<your github handle>/awesome-api) with the command go build. The first build may takes some times.
 
 - run: Run the application in background by executing the binary awesome-api, and write logs into a file named awesome-api.log with the command ./awesome-api >./awesome-api.log 2>&1 &.
 
-- stop: Stop the application with the command kill XXXXX where XXXXX is the Process ID of the application. For instance: kill "$(pgrep awesome-api)".
+- post: Create a new blog post whose filename and title come from the environment variables POST_TITLE and POST_NAME.
 
-- post: Create a new blog post whose filename and title come from the environment variables POST_TITLE and POST_NAME
+- stop: Stop the application with the command pkill XXXXX where XXXXX is the binary name. For instance: pkill awesome-api.
 
-- clean: Stop the application. Delete the binary awesome-api and the log file awesome-api.log
+- clean: Stop the application. Delete the binary awesome-api and the log file awesome-api.log.
 
-- test: You want to test it to ensure that it behaves as expected.
+- test: Test the application using unit and integration tests.
 
-- unit-tests: Run unit tests.
+- help: Print a list of all the goals.
 
-- integration-tests: Run integration tests.
+- lint: Fail when the linter catches an error.
 
-- lint: Lint go lang code.
+- unit-tests: Execute (successfully) the Golang unit tests.
 
-- check: Lint markdonw source, check dead links.
+- integration-tests: Execute (successfully) the Golang integration tests.
 
-- validate: Validate the file dist/index.html using the command line Holberton’s W3C Validator.
+- check: Succeed by default, and fail when presented with a dead link or a badly written Markdown file
 
-- help: Display help message.
+- validate: Always succeed by default and should print the result on the stdout
