@@ -35,3 +35,10 @@
 - check: Succeed by default, and fail when presented with a dead link or a badly written Markdown file
 
 - validate: Always succeed by default and should print the result on the stdout
+  
+  
+  ## Workflow
+
+- module3_task0: this workflow clones the repository, using ubuntu-22.04 as the virtual machine, and executes the command make help to validate that the Makefile is present and implements the help target. Its triggered:
+    Each time there is new code pushed on your repository,
+    And once per day (whatever time you want).
