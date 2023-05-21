@@ -151,7 +151,6 @@ OK
 <br><br><br><br>
 
 # task 1. Agregar dependencias de compilación al entorno de CI
-obligatorio
 Ahora que ha configurado su primer flujo de trabajo, reemplacemos el comando make help por el comando make build.
 
 El resultado debería ser una canalización fallida con un error como este:
@@ -234,3 +233,82 @@ OK
 
 - ##### GitHub repository: holbertonschool-validation
 - ##### Directory: ./module3_task1
+
+<br><br><br><br>
+
+# task 2. Comentarios anteriores con entrega continua
+Uno de los puntos clave en la cultura DevOps es hacer visible cualquier cambio para retroalimentar lo antes posible.
+
+
+[![Esta es una imagen de ejemplo](https://dduportal.github.io/public/holberton/m3-t2-0.png)](https://dduportal.github.io/public/holberton/m3-t2-0.png)
+
+
+
+(Fuente: http://cartoontester.blogspot.be/2010/01/big-bugs.html)
+
+Como implementó un proceso de integración continua, significa que su equipo técnico puede obtener comentarios del proceso de compilación cada vez que se envía un cambio al repositorio remoto: el "Tiempo de retroalimentación" solo depende del tiempo de compilación y su la capacidad del equipo para responder a las notificaciones del sistema de compilación.
+
+Pero como descubrió durante su primer día en “Awesome Inc.”, su equipo no es el único consumidor del código que escribe y mantiene.
+
+Comencemos con el "equipo de operación": el área de especialización de este equipo es garantizar que todos los servidores de producción de "Awesome Inc." están operativas, lo que también incluye las aplicaciones que se ejecutan en estas máquinas. Quieren cierta estabilidad en los artefactos que produce para poder gestionar de forma segura las solicitudes de actualización de aplicaciones.
+
+Después de una reunión con este equipo, se entera de que querrían evitar compilar la aplicación ellos mismos en cada implementación y, en su lugar, solicitan una entrega con documentación.
+
+Su objetivo es extender la práctica de Integración Continua a una de Entrega Continua para reducir la fricción con este equipo:
+
+- El resultado del nuevo proceso debe ser un archivo ZIP que contenga solo el binario awesome-api y el directorio dist/: estos son los únicos recursos que necesita el equipo de operaciones.
+
+- La entrega continua tiene que ver con "la aplicación debe estar lista para implementarse en cualquier momento": el archivo ZIP debe generarse para cada confirmación en la rama principal:
+
+Tendría (a menudo) una respuesta temprana si el archivo no se pudo crear/validar: no es necesario esperar a la próxima implementación
+El proceso de "construcción" ES manejado por GitHub Actions para que cualquiera de su equipo pueda usarlo: puede irse de vacaciones sin estresarse y sus nuevos colegas contratados podrían crecer en sus roles.
+Su trabajo es implementar este nuevo proceso:
+
+- Agrega un nuevo paquete llamado make target que produce un archivo awesome-website.zip, que contiene el binario awesome-api y el directorio dist/.
+
+- Escriba un documento de "implementación" llamado DEPLOY.md destinado a responder a las preguntas habituales del equipo de operaciones:
+
+  - ¿Qué hay en el archivo y cómo desarchivarlo?
+  - ¿Cuáles son los comandos para iniciar y detener la aplicación?
+  - ¿Cómo personalizar dónde se escriben los registros de la aplicación?
+  - ¿Cómo verificar “rápidamente” que la aplicación se está ejecutando (chequeo de salud)?
+- Cree un nuevo flujo de trabajo llamado module3_task2, extendiendo el anterior que debe producir y archivar el archivo ZIP usando el paquete de destino si todas las pruebas y la validación se han ejecutado correctamente, pero solo en la rama principal (ya sea principal o principal, por ejemplo). necesita algunos elementos específicos de GitHub Action:
+
+  - Ejecute un paso condicionalmente: https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions
+  - Almacene datos de flujo de trabajo como artefacto (por ejemplo, almacene y asocie archivos a una ejecución de flujo de trabajo): https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts
+# Requisitos
+- Mismo requisito que el módulo anterior:
+
+  - Un sitio web válido de Hugo
+  - Makefile con los mismos objetivos, incluida la ayuda
+  - La documentación (README.md y Makefile) está actualizada con el estado del proyecto
+- El archivo DEPLOY.md existe y no está vacío. Describe los 4 puntos descritos anteriormente.
+
+- El paquete objetivo debe implementarse y documentarse. Debería crear un archivo llamado awesome-website.zip (no comprometido y eliminado por make clean).
+
+- El lint de destino debe actualizarse para lint los archivos README.md y DEPLOY.md con la línea de comando markdownlint
+
+- El archivo .github/workflows/module3_task2.yml debe estar presente
+
+  - Debe ser válido en sintaxis YAML
+  - Debe ser un flujo de trabajo de acción de GitHub válido con 1 trabajo con al menos 7 pasos
+  - Debe tener 2 gatillos
+- El flujo de trabajo "module3_task2" debe:
+
+  - Ejecute siempre el paquete make target
+  - Archivar el paquete generado solo en la rama principal
+  - estar habilitado en GitHub Actions y debe haberse ejecutado correctamente
+```bash
+➜ curl --silent --show-error --user "${GH_USERNAME}:${GH_TOKEN}" "https://api.github.com/repos/${GH_USERNAME}/${GH_REPO}/actions/runs" | jq '.workflow_runs[0] | .name, .head_branch, .conclusion'
+"module3_task2"
+"main"
+"success"
+```
+
+### Repo:
+
+- ##### GitHub repository: holbertonschool-validation
+- ##### Directory: ./module3_task2
+
+<br><br><br><br>
+
