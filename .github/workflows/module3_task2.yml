@@ -1,0 +1,33 @@
+---
+name: module3_task2
+run-name: module3_task2
+on: # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: "5 * * *"
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup
+        run: ./setup.sh
+        working-directory: module3_task2
+
+      - name: Build
+        run: sudo make build
+        working-directory: module3_task2
+
+      - name: Test validation
+        id: test
+        run: sudo make test
+        working-directory: module3_task2
+
+      - name: Package
+        if: steps.test.outputs.exit_code == 0
+        run: sudo make package
+        working-directory: module3_task2
