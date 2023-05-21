@@ -1,0 +1,21 @@
+---
+name: module3_task1
+run-name: module3_task1
+on: # yamllint disable-line rule:truthy
+  push:
+  schedule:
+    - cron: "5 * * *"
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup
+        run: ./setup.sh
+        working-directory: module3_task1
+
+      - name: Build
+        run: sudo make build
+        working-directory: module3_task1
