@@ -155,3 +155,82 @@ obligatorio
 Ahora que ha configurado su primer flujo de trabajo, reemplacemos el comando make help por el comando make build.
 
 El resultado debería ser una canalización fallida con un error como este:
+
+
+[![Esta es una imagen de ejemplo](https://dduportal.github.io/public/holberton/m3-t1-0.png)](https://dduportal.github.io/public/holberton/m3-t1-0.png)
+
+
+
+Como documenta GitHub Actions, las máquinas donde se ejecutan los trabajos del flujo de trabajo ya tienen algunas herramientas instaladas.
+
+Puede ver que algunas herramientas necesarias para construir nuestra aplicación, como make o Golang, están disponibles. Pero faltan otros.
+
+Hay 2 estrategias diferentes para resolver este desafío, cada una con sus pros y sus contras:
+
+- Instale las herramientas durante la compilación:
+
+  - ✅ Te asegura tener un sistema de instalación automatizado y siempre actualizado
+  - ❌ pero ralentiza las compilaciones (tiene que esperar a que se instalen todas las herramientas mientras desea recibir comentarios lo antes posible)
+- Asegúrese de que el flujo de trabajo se ejecute dentro de un entorno prediseñado con todas las herramientas necesarias
+
+  - ✅ Comentarios rápidos: no necesita esperar a que se instalen las herramientas
+  - ❌ Gastos generales de mantenimiento, ya que necesita administrar el entorno prediseñado
+Para este módulo, usaremos la primera estrategia y la segunda se cubrirá en el módulo "Docker".
+
+Debería ser un paso fácil: ya escribiste un script setup.sh cuya función era instalar a Hugo en el entorno de producción: ¡reutilicemos este trabajo!
+
+Se espera que cree un nuevo flujo de trabajo denominado module3_task1 a partir del flujo de trabajo anterior.
+
+Este nuevo flujo de trabajo debe ejecutar los siguientes objetivos como pasos distintos: build.
+
+En cuanto al utillaje, hay que:
+
+- Asegúrese de que el flujo de trabajo se ejecute en un entorno de ejecución de Ubuntu 22.04. A pesar de que es la misma imagen que la última de Ubuntu, asegúrese de usar Ubuntu 22.04
+- Asegúrese de que todas las herramientas requeridas estén instaladas antes de cualquier objetivo de creación, ejecutando el script setup.sh
+  - ⚠️ El script debe modificarse para instalar solo las herramientas que faltan (no se espera ningún objetivo de creación)
+Para depurar localmente lo que necesita agregar en la imagen de acción de github, puede usar Docker. Utilice el Dockerfile enviado en el canal de holgura de su cohorte para crear una imagen similar a la utilizada por la acción de github. Creará una imagen local, hará girar un nuevo contenedor cargando esta imagen y podrá adaptar su secuencia de comandos ./setup.sh.
+
+```bash
+➜ ls
+Dockerfile
+➜ docker build -t ubuntu-22.04 .
+...
+➜ cd /module3_task1
+➜ ls
+...
+setup.sh
+...
+➜ docker run --rm --tty --interactive --volume=$(pwd):/app --workdir=/app ubuntu-22.04 /bin/bash
+student@04b970bbb59d:/app$ 
+```
+Ahora puede intentar ejecutar el script de instalación y corregirlo para que funcione en la imagen de acción de github.
+
+# Requisitos
+- Mismo requisito que el módulo anterior:
+
+  - Un sitio web válido de Hugo
+  - Makefile con los mismos objetivos, incluida la ayuda
+  - Un archivo README.md actualizado con el estado del proyecto (⚠️ No olvide agregar una sección Crear flujo de trabajo)
+- El archivo .github/workflows/module3_task1.yml debe estar presente
+
+  - Debe ser válido en sintaxis YAML
+  - Debe ser un flujo de trabajo de acción de GitHub válido con 1 trabajo con al menos 7 pasos (pagar, ejecutar setup.sh y luego los 5 comandos make)
+  - Debe tener 2 gatillos
+
+```bash
+➜ yamllint "$(readlink github-workflow.yml)" --no-warnings >/dev/null 2>&1 && echo OK
+OK
+```
+
+- El flujo de trabajo module3_task1 debe estar habilitado en GitHub Actions y debe haberse ejecutado correctamente
+```bash
+➜ curl --silent --show-error --user "${GH_USERNAME}:${GH_TOKEN}" "https://api.github.com/repos/${GH_USERNAME}/${GH_REPO}/actions/runs" | jq '.workflow_runs[0] | .name, .head_branch, .conclusion'
+"module3_task1"
+"main"
+"success"
+```
+
+### Repo:
+
+- ##### GitHub repository: holbertonschool-validation
+- ##### Directory: ./module3_task1
