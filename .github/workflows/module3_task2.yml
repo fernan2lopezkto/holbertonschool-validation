@@ -3,10 +3,9 @@ name: module3_task2
 run-name: module3_task2
 on: # yamllint disable-line rule:truthy
   push:
-    branches:
-      - master
   schedule:
-    - cron: "5 * * *"
+    - cron: "00 5 * * *"
+    
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-22.04
