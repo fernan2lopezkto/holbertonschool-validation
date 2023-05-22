@@ -1,12 +1,12 @@
 ---
 name: module3_task3
 run-name: module3_task3
-on: # yamllint disable-line rule:truthy
+on: #yamllint disable-line rule:truthy
   push:
     branches:
       - master
     tags:
-      1.0.0
+      - "*"
   schedule:
     - cron: "00 5 * * *"
 permissions:
@@ -42,5 +42,3 @@ jobs:
           files: |
             module3_task3/DEPLOY.md
             module3_task3/awesome-website.zip
-          tag_name: 1.0.0
-          body_path: ./module3_task4/DEPLOY.md
