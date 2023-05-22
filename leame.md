@@ -312,3 +312,57 @@ Su trabajo es implementar este nuevo proceso:
 
 <br><br><br><br>
 
+# task 3. Automatice los lanzamientos con etiquetas de Git y lanzamientos de GitHub
+
+A medida que avanza con el nuevo proceso de Entrega continua, el departamento de ingeniería de “Awesome Inc.” está creciendo: se crea un nuevo equipo llamado "Team dev-B" y comienza a trabajar con su propio equipo ("Team dev-A") en el sitio web.
+
+La tasa de cambios en la rama principal del repositorio se está disparando, y el equipo de operaciones le responde con una nueva solicitud. La cantidad de cambios hace que sea difícil rastrearlos y no pueden saber cuándo se debe implementar nuevamente el sitio web.
+
+Durante la reunión con el equipo operativo, los miembros de su equipo también señalaron el riesgo que implica la implementación de los últimos cambios, ya que los cambios enviados a la rama principal a menudo fallan (debido a problemas de prueba la mayor parte del tiempo).
+
+[![Esta es una imagen de ejemplo](https://dduportal.github.io/public/holberton/m3-t3-0.png)](https://dduportal.github.io/public/holberton/m3-t3-0.png)
+
+Su objetivo es implementar un proceso de lanzamiento para que la aplicación se marque con una versión en un momento determinado.
+
+
+
+Entonces, el equipo de operación siempre podría usar la versión liberada de la aplicación sin ningún riesgo, mientras que el resto del equipo puede continuar trabajando en el repositorio.
+
+Se espera que cree un nuevo flujo de trabajo llamado module3_task3 (a partir del contenido de module3_task2) que se activará cuando se inserte una etiqueta Git en el repositorio remoto, además de los activadores reales.
+
+Una ejecución de flujo de trabajo desencadenada por un nombre de etiqueta git 1.0.0 debería:
+
+- Cree una versión de GitHub usando la acción de GitHub "softprops/gh-release" denominada 1.0.0 y apuntando a la etiqueta 1.0.0,
+- Agregue el archivo impresionante-website.zip a la versión 1.0.0,
+- Agregue el contenido del archivo DEPLOY.md como texto para el lanzamiento.
+# Requisitos
+- Mismos requisitos que el módulo anterior:
+
+  - Un sitio web válido de Hugo
+  - Makefile con los mismos objetivos, incluida la ayuda
+  - La documentación (README.md, DEPLOY.md y Makefile) está actualizada con el estado del proyecto
+- El archivo .github/workflows/module3_task3.yml debe estar presente
+
+  - Debe ser válido en sintaxis YAML
+  - Debe ser un flujo de trabajo de acción de GitHub válido
+- El flujo de trabajo "module3_task3" debe:
+
+  - Genere un archivo cuando lo active una etiqueta
+  - Cree un lanzamiento con el archivo y el contenido de DEPLOY.md cuando lo active una etiqueta
+  - Se comporta igual que "module3_task2" cuando se activa por algo más que una etiqueta (por ejemplo, archivo sin nombre de versión y sin publicación)
+  - Estar habilitado en GitHub Actions y debe haberse ejecutado correctamente con una etiqueta 1.0.0
+
+```bash
+➜ curl --silent --show-error --user "${GH_USERNAME}:${GH_TOKEN}" "https://api.github.com/repos/${GH_USERNAME}/${GH_REPO}/actions/runs" | jq '.workflow_runs[0] | .name, .head_branch, .conclusion'
+"module3_task3"
+"main"
+"success"
+```
+
+
+### Repo:
+
+- ##### GitHub repository: holbertonschool-validation
+- ##### Directory: ./module3_task3
+
+<br><br><br><br>
