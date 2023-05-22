@@ -1,7 +1,7 @@
 ---
 name: module3_task3
 run-name: module3_task3
-on: #yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   push:
     branches:
       - master
@@ -42,4 +42,3 @@ jobs:
           files: |
             module3_task3/DEPLOY.md
             module3_task3/awesome-website.zip
-            
