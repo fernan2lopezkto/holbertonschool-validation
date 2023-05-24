@@ -1,0 +1,12 @@
+version: "2.0"
+containers:
+  - name: jenkins
+    image: jenkins-devops:1.0.0
+    command:
+      - bash
+      - -c
+      - |
+        set -e
+        java -version | grep "java version \"11"
+        ls /usr/share/jenkins/ref/plugins/your-plugin-name.hpi
+        ls /usr/share/jenkins/ref/config.xml
