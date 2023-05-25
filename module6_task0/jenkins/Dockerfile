@@ -16,8 +16,10 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
     https://download.docker.com/linux/debian \
     $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-    
+
 # install plugins from txt file
 COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
 
+# Return to user jenkins
+USER jenkins
