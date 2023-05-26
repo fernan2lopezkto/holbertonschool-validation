@@ -4,7 +4,7 @@ commandTests:
   - name: 'java is installed'
     command: 'java'
     args: ['-version']
-    expectedOutput: ['openjdk version 11']
+    expectedOutput: ['openjdk version \"11']
 fileExistenceTests:
   - name: 'Plugins - git is installed'
     path: '/usr/share/jenkins/ref/plugins/git.jpi'

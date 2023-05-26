@@ -2,6 +2,11 @@ FROM jenkins/jenkins:lts-jdk11
 
 USER root
 
+
+# Configurar variables de entorno para Java 11
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV PATH=$JAVA_HOME/bin:$PATH
+
 # Disable Jenkins setup wizard
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 
